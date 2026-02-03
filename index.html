@@ -13,50 +13,54 @@
 
     body {
       margin: 0;
-      height: 100vh;
+      min-height: 100vh;
       background: linear-gradient(135deg, #ff758c, #ff7eb3);
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       color: white;
+      padding: 20px;
     }
 
     .container {
       text-align: center;
       background: rgba(255, 255, 255, 0.15);
-      padding: 40px 30px;
+      padding: 30px 20px;
       border-radius: 20px;
       backdrop-filter: blur(10px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-      max-width: 90%;
+      width: 100%;
+      max-width: 420px;
     }
 
     h1 {
-      font-size: 2.4rem;
+      font-size: clamp(1.8rem, 5vw, 2.4rem);
       margin-bottom: 10px;
     }
 
     h2 {
-      font-size: 1.4rem;
+      font-size: clamp(1.1rem, 4vw, 1.4rem);
       font-weight: 400;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
     .buttons {
       position: relative;
-      height: 160px;
-      width: 320px;
+      height: 180px;
+      width: 100%;
+      max-width: 320px;
       margin: 0 auto;
     }
 
     button {
-      padding: 14px 30px;
-      font-size: 1.2rem;
+      padding: 14px 26px;
+      font-size: clamp(1rem, 3.5vw, 1.2rem);
       border-radius: 30px;
       border: none;
       cursor: pointer;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     #yes {
@@ -80,8 +84,8 @@
     }
 
     .message {
-      margin-top: 30px;
-      font-size: 1.4rem;
+      margin-top: 25px;
+      font-size: clamp(1.1rem, 4vw, 1.4rem);
       display: none;
       line-height: 1.6;
     }
@@ -91,6 +95,7 @@
       bottom: -20px;
       animation: floatUp 6s linear infinite;
       opacity: 0.9;
+      pointer-events: none;
     }
 
     @keyframes floatUp {
@@ -118,30 +123,38 @@
 
     <div class="message" id="message">
       💕 YAY!!! I knew it 😍  
-Prathyusha, be the missing piece to my heart's puzzle!
-      <br /><br />
-      Every love story is special, but ours will be extraordinary... 💖
+      <br><br>
+      Prathyusha, be the missing piece to my heart's puzzle! 💖  
+      <br><br>
+      Every love story is special, but ours will be extraordinary ✨
     </div>
   </div>
+
+  <!-- 🎵 Romantic Song -->
+  <audio id="loveSong" loop>
+    <!-- Replace this src with your chosen song -->
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
     const noButton = document.getElementById("no");
     const yesButton = document.getElementById("yes");
     const message = document.getElementById("message");
     const container = document.querySelector(".buttons");
+    const song = document.getElementById("loveSong");
 
     const noTexts = [
       "No 🙈",
       "Please e 🥺",
-      "Kannama Are you sure? 😳",
-      "amma please yes cheppe ? 😭",
+      "Kannama are you sure? 😳",
+      "amma please yes cheppe 😭",
       "Okay… last chance inka 😌",
-      "Yes cheppu, love you kada",
-      "Dyson konistha yes cheppu",
-      "Kannama Muuuuuuuuuuah 😘",
-      "Orei Chitti ga yes cheppu",
+      "Yes cheppu, love you kada 💕",
+      "Dyson konistha yes cheppu 😆",
+      "Kannama muuuuuah 😘",
+      "Orei chitti ga yes cheppu",
       "Love you kannama, yes cheppu",
-      "Baga chusukuntane, yes cheppu"
+      "Baga chusukuntane, yes cheppu ❤️"
     ];
 
     let noCount = 0;
@@ -167,6 +180,8 @@ Prathyusha, be the missing piece to my heart's puzzle!
       message.style.display = "block";
       yesButton.style.display = "none";
       noButton.style.display = "none";
+
+      song.play().catch(() => {}); // safe for mobile
       spawnHearts();
     });
 
@@ -180,7 +195,7 @@ Prathyusha, be the missing piece to my heart's puzzle!
         document.body.appendChild(heart);
 
         setTimeout(() => heart.remove(), 6000);
-      }, 300);
+      }, 280);
     }
   </script>
 
