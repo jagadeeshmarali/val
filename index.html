@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>Will You Be My Valentine?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <style>
     * {
       box-sizing: border-box;
@@ -23,25 +25,29 @@
     .container {
       text-align: center;
       background: rgba(255, 255, 255, 0.15);
-      padding: 40px 50px;
+      padding: 40px 30px;
       border-radius: 20px;
       backdrop-filter: blur(10px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      max-width: 90%;
     }
 
     h1 {
-      font-size: 2.6rem;
+      font-size: 2.4rem;
       margin-bottom: 10px;
     }
 
     h2 {
+      font-size: 1.4rem;
       font-weight: 400;
       margin-bottom: 30px;
     }
 
     .buttons {
       position: relative;
-      height: 120px;
+      height: 160px;
+      width: 320px;
+      margin: 0 auto;
     }
 
     button {
@@ -56,12 +62,11 @@
     #yes {
       background: #ff2d55;
       color: white;
-      margin-right: 20px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
 
     #yes:hover {
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
 
     #no {
@@ -71,29 +76,29 @@
       left: 50%;
       top: 0;
       transform: translateX(-50%);
+      user-select: none;
     }
 
     .message {
       margin-top: 30px;
       font-size: 1.4rem;
       display: none;
+      line-height: 1.6;
     }
 
-    /* Floating hearts */
     .heart {
       position: absolute;
       bottom: -20px;
-      color: rgba(255,255,255,0.8);
       animation: floatUp 6s linear infinite;
-      font-size: 20px;
+      opacity: 0.9;
     }
 
     @keyframes floatUp {
-      0% {
+      from {
         transform: translateY(0) scale(1);
         opacity: 1;
       }
-      100% {
+      to {
         transform: translateY(-110vh) scale(1.8);
         opacity: 0;
       }
@@ -113,8 +118,9 @@
 
     <div class="message" id="message">
       💕 YAY!!! I knew it 😍  
+Prathyusha, be the missing piece to my heart's puzzle!
       <br /><br />
-      You just made me the happiest person today 💖
+      Every love story is special, but ours will be extraordinary... 💖
     </div>
   </div>
 
@@ -122,17 +128,39 @@
     const noButton = document.getElementById("no");
     const yesButton = document.getElementById("yes");
     const message = document.getElementById("message");
+    const container = document.querySelector(".buttons");
 
-    noButton.addEventListener("mouseover", () => {
-      const container = document.querySelector(".buttons");
-      const maxX = container.offsetWidth - noButton.offsetWidth;
-      const maxY = container.offsetHeight - noButton.offsetHeight;
+    const noTexts = [
+      "No 🙈",
+      "Please e 🥺",
+      "Kannama Are you sure? 😳",
+      "amma please yes cheppe ? 😭",
+      "Okay… last chance inka 😌",
+      "Yes cheppu, love you kada",
+      "Dyson konistha yes cheppu",
+      "Kannama Muuuuuuuuuuah 😘",
+      "Orei Chitti ga yes cheppu",
+      "Love you kannama, yes cheppu",
+      "Baga chusukuntane, yes cheppu"
+    ];
 
-      const randomX = Math.random() * maxX;
-      const randomY = Math.random() * maxY;
+    let noCount = 0;
 
-      noButton.style.left = `${randomX}px`;
-      noButton.style.top = `${randomY}px`;
+    function moveNoButton() {
+      const maxX = container.clientWidth - noButton.offsetWidth;
+      const maxY = container.clientHeight - noButton.offsetHeight;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+    }
+
+    noButton.addEventListener("click", () => {
+      noButton.textContent = noTexts[noCount % noTexts.length];
+      noCount++;
+      moveNoButton();
     });
 
     yesButton.addEventListener("click", () => {
@@ -148,7 +176,7 @@
         heart.className = "heart";
         heart.innerHTML = "❤️";
         heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = 16 + Math.random() * 20 + "px";
+        heart.style.fontSize = 16 + Math.random() * 24 + "px";
         document.body.appendChild(heart);
 
         setTimeout(() => heart.remove(), 6000);
